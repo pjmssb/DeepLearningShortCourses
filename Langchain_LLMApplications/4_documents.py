@@ -43,7 +43,7 @@ db = DocArrayInMemorySearch.from_documents(
 query = "Please suggest a shirt with sunblocking"
 docs = db.similarity_search(query)
 print(len(docs))
-print(docs[0])
+print(docs[0]) 
 retriever = db.as_retriever()
 llm = ChatOpenAI(temperature = 0.0)
 qdocs = "".join([docs[i].page_content for i in range(len(docs))])
