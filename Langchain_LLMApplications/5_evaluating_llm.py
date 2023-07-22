@@ -10,7 +10,7 @@ from langchain.indexes import VectorstoreIndexCreator
 from langchain.vectorstores import DocArrayInMemorySearch
 
 file = './Langchain_LLMApplications/OutdoorClothingCatalog_1000.csv'
-loader = CSVLoader(file_path=file)
+loader = CSVLoader(file_path=file, encoding='utf-8')
 data = loader.load()
 
 index = VectorstoreIndexCreator(
@@ -55,7 +55,30 @@ new_examples = example_gen_chain.apply_and_parse(
 print(new_examples[0])
 
 print(data[0])
-
 examples += new_examples
+print(qa.run(examples[0]["query"]))
+
+import langchain
+langchain.debug = True  #--> Super-verbose mode
 
 qa.run(examples[0]["query"])
+
+# Turn off the debug mode
+langchain.debug = False
+
+predictions = qa.apply(examples)
+
+from langchain.evaluation.qa import QAEvalChain
+
+llm = ChatOpenAI(temperature=0)
+eval_chain = QAEvalChain.from_llm(llm)
+
+graded_outputs = eval_chain.evaluate(examples, predictions)
+
+for i, eg in enumerate(examples):
+    print(f"Example {i}:")
+    print("Question: " + predictions[i]['query'])
+    print("Real Answer: " + predictions[i]['answer'])
+    print("Predicted Answer: " + predictions[i]['result'])
+    print("Predicted Grade: " + graded_outputs[i]['text'])
+    print()
