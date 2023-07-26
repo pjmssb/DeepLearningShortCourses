@@ -31,6 +31,9 @@ print(page.metadata)
 #Youtube
 # ! pip install yt_dlp
 # ! pip install pydub
+# Windows Command  python .\Langchain_chatWithYourData\1_document_loading.py --ffmpeg-location .\Langchain_chatWithYourData\ff-essentials-6.0\bin\
+# ffmpeg instalado especialmente. No lo incluyo en 
+
 from langchain.document_loaders.generic import GenericLoader
 from langchain.document_loaders.parsers import OpenAIWhisperParser
 from langchain.document_loaders.blob_loaders.youtube_audio import YoutubeAudioLoaderff
