@@ -33,7 +33,7 @@ print(page.metadata)
 # ! pip install pydub
 from langchain.document_loaders.generic import GenericLoader
 from langchain.document_loaders.parsers import OpenAIWhisperParser
-from langchain.document_loaders.blob_loaders.youtube_audio import YoutubeAudioLoader
+from langchain.document_loaders.blob_loaders.youtube_audio import YoutubeAudioLoaderff
 
 url="https://www.youtube.com/watch?v=jGwO_UgTS7I"
 save_dir="./DeepLearningShortCourses/"
@@ -42,3 +42,5 @@ loader = GenericLoader(
     OpenAIWhisperParser()
 )
 docs = loader.load()
+
+docs[0].page_content[0:500]
